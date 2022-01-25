@@ -1,9 +1,11 @@
+import CompanyInfo from "../../components/CompanyInfo";
+
 const HomePage = () => {
   return (
     <>
       <div style={{ display: "flex" }}>
-        <div style={{ flexGrow: 1 }}>Left</div>
-        <div style={{ flexGrow: 3 }}>Right</div>
+        <CompanyInfo />
+        <div>Right</div>
       </div>
       <div style={{ display: "flex" }}>
         <span>Update time</span>
