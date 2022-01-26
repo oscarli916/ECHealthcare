@@ -1,5 +1,6 @@
 import CompanyInfo from "../../components/CompanyInfo";
 import InputFilter from "../../components/InputFilter";
+import Table from "../../components/Table";
 import UpdateTime from "../../components/UpdateTime";
 
 const HomePage = () => {
@@ -19,16 +20,9 @@ const HomePage = () => {
       >
         <UpdateTime />
       </div>
-      <table style={{ width: "100%" }}>
-        <tr>
-          <th>Customer ID</th>
-          <th>Shop</th>
-          <th>Customer Image</th>
-          <th>Time In</th>
-          <th>Dwell Time</th>
-          <th>Approach</th>
-        </tr>
-      </table>
+
+      <Table />
+
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
         <button>Last</button>
         2/5

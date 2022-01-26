@@ -1,0 +1,15 @@
+.table {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  width: 100%;
+}
+
+.row {
+  border-bottom: 1px solid grey;
+}
+
+.header {
+  padding: 10px 0px 10px 0px;
+}
