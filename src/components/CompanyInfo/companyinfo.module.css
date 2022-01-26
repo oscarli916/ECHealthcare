@@ -1,3 +1,5 @@
 .company-info {
+  flex: 0.5;
   margin-left: 20px;
+  text-align: left;
 }

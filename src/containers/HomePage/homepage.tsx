@@ -1,11 +1,12 @@
 import CompanyInfo from "../../components/CompanyInfo";
+import InputFilter from "../../components/InputFilter";
 
 const HomePage = () => {
   return (
     <>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", alignItems: "center" }}>
         <CompanyInfo />
-        <div>Right</div>
+        <InputFilter />
       </div>
       <div style={{ display: "flex" }}>
         <span>Update time</span>

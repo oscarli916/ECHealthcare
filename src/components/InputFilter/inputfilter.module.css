@@ -1,0 +1,43 @@
+.input-filter {
+  flex: 1;
+}
+
+.input-filter-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.input-shop {
+  flex: 1;
+  margin-left: 70px;
+  margin-right: 30px;
+}
+
+.input-customer {
+  margin-left: 16.5px;
+}
+
+.input-time-left {
+  margin-left: 54px;
+  margin-right: 5px;
+}
+
+.input-time-right {
+  margin-left: 5px;
+}
+
+.input-dwell {
+  margin-left: 25px;
+}
+
+.input-button {
+  text-align: end;
+}
+
+.input-button-left {
+  margin-right: 30px;
+}
+
+.input-button-right {
+  margin-right: 40px;
+}
