@@ -1,0 +1,18 @@
+.info-container {
+  align-items: center;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.time-container {
+  border-top: 2px solid grey;
+  border-bottom: 2px solid grey;
+  display: flex;
+  padding: 10px 0px 10px 20px;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 30px;
+}

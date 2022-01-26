@@ -3,34 +3,22 @@ import InputFilter from "../../components/InputFilter";
 import Pagination from "../../components/Pagination";
 import Table from "../../components/Table";
 import UpdateTime from "../../components/UpdateTime";
+import styles from "./homepage.module.css";
 
 const HomePage = () => {
   return (
     <>
-      <div style={{ display: "flex", alignItems: "center", marginBottom: 10 }}>
+      <div className={styles["info-container"]}>
         <CompanyInfo />
         <InputFilter />
       </div>
-      <div
-        style={{
-          display: "flex",
-          borderTop: "2px solid grey",
-          borderBottom: "2px solid grey",
-          padding: "10px 0px 10px 20px",
-        }}
-      >
+      <div className={styles["time-container"]}>
         <UpdateTime />
       </div>
 
       <Table />
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          paddingRight: 30,
-        }}
-      >
+      <div className={styles["pagination-container"]}>
         <Pagination />
       </div>
     </>
