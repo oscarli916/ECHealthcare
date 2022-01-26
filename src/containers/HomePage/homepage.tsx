@@ -1,5 +1,6 @@
 import CompanyInfo from "../../components/CompanyInfo";
 import InputFilter from "../../components/InputFilter";
+import Pagination from "../../components/Pagination";
 import Table from "../../components/Table";
 import UpdateTime from "../../components/UpdateTime";
 
@@ -23,10 +24,14 @@ const HomePage = () => {
 
       <Table />
 
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <button>Last</button>
-        2/5
-        <button>Next</button>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          paddingRight: 30,
+        }}
+      >
+        <Pagination />
       </div>
     </>
   );
