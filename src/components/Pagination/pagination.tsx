@@ -1,13 +1,33 @@
 import styles from "./pagination.module.css";
 
-const Pagination = () => {
+interface IPagination {
+  currentPage: number;
+  totalPages: number;
+  onPagePrevious: () => void;
+  onPageNext: () => void;
+}
+
+const Pagination = ({
+  currentPage,
+  totalPages,
+  onPagePrevious,
+  onPageNext,
+}: IPagination) => {
   return (
     <>
-      <button className={styles["button-left"]} type="button">
+      <button
+        className={styles["button-left"]}
+        type="button"
+        onClick={onPagePrevious}
+      >
         Last
       </button>
-      2/5
-      <button className={styles["button-right"]} type="button">
+      {currentPage}/{totalPages}
+      <button
+        className={styles["button-right"]}
+        type="button"
+        onClick={onPageNext}
+      >
         Next
       </button>
     </>

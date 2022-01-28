@@ -1,53 +1,82 @@
+import { useState } from "react";
 import styles from "./table.module.css";
 
-const headCells = [
-  "Customer ID",
-  "Shop",
-  "Customer Image",
-  "Time In",
-  "Dwell Time",
+type Order = "asc" | "desc";
+
+interface HeadCell {
+  id: string;
+  label: string;
+}
+
+const headCells: HeadCell[] = [
+  { id: "customer", label: "Customer ID" },
+  { id: "shop", label: "Shop" },
+  { id: "image", label: "Customer Image" },
+  { id: "time", label: "Time In" },
+  { id: "dwell", label: "Dwell Time" },
 ];
 
-// Mock data
-const bodyCells = [
-  {
-    id: "Customer #01",
-    shop: "MKQ",
-    image:
-      "https://aircall.io/wp-content/uploads/2016/04/Meditating-on-the-cloud-870x870.png",
-    in: "13:16:37",
-    dwell: "10 mins 2 secs",
-  },
-  {
-    id: "Customer #02",
-    shop: "ZTSTA",
-    image: "",
-    in: "13:19:58",
-    dwell: "7 mins 47 secs",
-  },
-];
+type TableData = {
+  customer_id: string;
+  crop_path: string;
+  time_in: string;
+  dwell_time: number;
+  shop?: string;
+};
 
-const Table = () => {
+interface ITable {
+  data: TableData[];
+}
+
+const Table = ({ data }: ITable) => {
+  const [order, setOrder] = useState<Order>("asc");
+  const [orderBy, setOrderBy] = useState("customer");
+
+  const sortedData = sortData(data, order, orderBy);
+
+  function onHeaderClickHandler(headerID: string) {
+    if (headerID === orderBy) {
+      setOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+    }
+    setOrderBy(headerID);
+  }
+
   return (
     <table className={styles["table"]}>
       <thead>
         <tr className={styles["row"]}>
           {headCells.map((header) => (
-            <th className={styles["header"]}>{header}</th>
+            <th
+              key={header.id}
+              className={styles["header"]}
+              onClick={() => onHeaderClickHandler(header.id)}
+            >
+              {header.label}
+            </th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {bodyCells.map((body) => {
+        {sortedData.map((body) => {
           return (
-            <tr className={styles["row"]}>
-              <td>{body.id}</td>
+            <tr className={styles["row"]} key={body.customer_id}>
+              <td>{body.customer_id}</td>
               <td>{body.shop}</td>
               <td>
-                <img src={body.image} alt="customer" width={27} height={61} />
+                <img
+                  src={body.crop_path}
+                  alt="customer"
+                  width={27}
+                  height={61}
+                />
               </td>
-              <td>{body.in}</td>
-              <td>{body.dwell}</td>
+              <td>{body.time_in}</td>
+              <td
+                className={body.dwell_time > 300 ? styles["dwell"] : undefined}
+              >
+                {Math.floor(body.dwell_time / 60)} mins {body.dwell_time % 60}
+                secs
+              </td>
             </tr>
           );
         })}
@@ -55,5 +84,32 @@ const Table = () => {
     </table>
   );
 };
+
+function sortData(data: TableData[], order: Order, orderBy: string) {
+  const newData = [...data];
+
+  switch (orderBy) {
+    case "customer":
+      if (order === "asc") {
+        return newData.sort((a, b) =>
+          a.customer_id.localeCompare(b.customer_id)
+        );
+      }
+      return newData.sort((a, b) => b.customer_id.localeCompare(a.customer_id));
+    case "time":
+      if (order === "asc") {
+        return newData.sort((a, b) => a.time_in.localeCompare(b.time_in));
+      }
+      return newData.sort((a, b) => b.time_in.localeCompare(a.time_in));
+    case "dwell":
+      if (order === "asc") {
+        return newData.sort((a, b) => a.dwell_time - b.dwell_time);
+      }
+      return newData.sort((a, b) => b.dwell_time - a.dwell_time);
+
+    default:
+      return newData;
+  }
+}
 
 export default Table;
