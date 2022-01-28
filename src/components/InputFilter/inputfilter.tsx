@@ -1,81 +1,17 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import styles from "./inputfilter.module.css";
-
-const times: string[] = [
-  "",
-  "06:00",
-  "06:15",
-  "06:30",
-  "06:45",
-  "07:00",
-  "07:15",
-  "07:30",
-  "07:45",
-  "08:00",
-  "08:15",
-  "08:30",
-  "08:45",
-  "09:00",
-  "09:15",
-  "09:30",
-  "09:45",
-  "10:00",
-  "10:15",
-  "10:30",
-  "10:45",
-  "11:00",
-  "11:15",
-  "11:30",
-  "11:45",
-  "12:00",
-  "12:15",
-  "12:30",
-  "12:45",
-  "13:00",
-  "13:15",
-  "13:30",
-  "13:45",
-  "14:00",
-  "14:15",
-  "14:30",
-  "14:45",
-  "15:00",
-  "15:15",
-  "15:30",
-  "15:45",
-  "16:00",
-  "16:15",
-  "16:30",
-  "16:45",
-  "17:00",
-  "17:15",
-  "17:30",
-  "17:45",
-  "18:00",
-  "18:15",
-  "18:30",
-  "18:45",
-  "19:00",
-  "19:15",
-  "19:30",
-  "19:45",
-  "20:00",
-  "20:15",
-  "20:30",
-  "20:45",
-  "21:00",
-  "21:15",
-  "21:30",
-  "21:45",
-  "22:00",
-];
+import { TIME } from "./inputfilter.constants";
 
 interface IInputFilter {
-  onSubmit: any;
+  onSubmit: (
+    customer: string,
+    timeStart: string,
+    timeEnd: string,
+    dwell: string
+  ) => void;
 }
 
 const InputFilter = ({ onSubmit }: IInputFilter) => {
-  const [shop, setShop] = useState("");
   const [customer, setCustomer] = useState("");
   const [timeStart, setTimeStart] = useState("");
   const [timeEnd, setTimeEnd] = useState("");
@@ -83,11 +19,7 @@ const InputFilter = ({ onSubmit }: IInputFilter) => {
 
   function onSubmitHandler(e: FormEvent) {
     e.preventDefault();
-    onSubmit(shop, customer, timeStart, timeEnd, dwell);
-  }
-
-  function onShopChangeHandler(e: ChangeEvent<HTMLSelectElement>) {
-    setShop(e.target.value);
+    onSubmit(customer, timeStart, timeEnd, dwell);
   }
 
   function onCustomerChangeHandler(e: ChangeEvent<HTMLInputElement>) {
@@ -107,7 +39,6 @@ const InputFilter = ({ onSubmit }: IInputFilter) => {
   }
 
   function onResetClickHandler() {
-    setShop("");
     setCustomer("");
     setTimeStart("");
     setTimeEnd("");
@@ -118,20 +49,6 @@ const InputFilter = ({ onSubmit }: IInputFilter) => {
     <div className={styles["input-filter"]}>
       <form onSubmit={onSubmitHandler}>
         <div className={styles["input-filter-row"]}>
-          <label>Shop</label>
-          <select
-            className={styles["input-shop"]}
-            name="shop"
-            id="shop"
-            onChange={onShopChangeHandler}
-          >
-            <option value={""}></option>
-            <option value={"MKQ"}>MKQ</option>
-            <option value={"ZTSTA"}>ZTSTA</option>
-          </select>
-        </div>
-
-        <div className={styles["input-filter-row"]}>
           <label>
             Customer ID
             <input
@@ -140,6 +57,7 @@ const InputFilter = ({ onSubmit }: IInputFilter) => {
               name="id"
               id="id"
               onChange={onCustomerChangeHandler}
+              value={customer}
             />
           </label>
         </div>
@@ -152,8 +70,9 @@ const InputFilter = ({ onSubmit }: IInputFilter) => {
               name="start-time"
               id="start-time"
               onChange={onTimeStartChangeHandler}
+              value={timeStart}
             >
-              {times.map((time) => (
+              {TIME.map((time) => (
                 <option key={time} value={time}>
                   {time}
                 </option>
@@ -165,8 +84,9 @@ const InputFilter = ({ onSubmit }: IInputFilter) => {
               name="end-time"
               id="end-time"
               onChange={onTimeEndChangeHandler}
+              value={timeEnd}
             >
-              {times.map((time) => (
+              {TIME.map((time) => (
                 <option key={time} value={time}>
                   {time}
                 </option>
@@ -182,6 +102,7 @@ const InputFilter = ({ onSubmit }: IInputFilter) => {
               name="dwell-time"
               id="dwell-time"
               onChange={onDwellChangeHandler}
+              value={dwell}
             >
               <option value={""}></option>
               <option value={"299"}>5 minutes</option>

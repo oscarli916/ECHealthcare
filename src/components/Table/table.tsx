@@ -10,7 +10,6 @@ interface HeadCell {
 
 const headCells: HeadCell[] = [
   { id: "customer", label: "Customer ID" },
-  { id: "shop", label: "Shop" },
   { id: "image", label: "Customer Image" },
   { id: "time", label: "Time In" },
   { id: "dwell", label: "Dwell Time" },
@@ -21,7 +20,6 @@ type TableData = {
   crop_path: string;
   time_in: string;
   dwell_time: number;
-  shop?: string;
 };
 
 interface ITable {
@@ -61,10 +59,9 @@ const Table = ({ data }: ITable) => {
           return (
             <tr className={styles["row"]} key={body.customer_id}>
               <td>{body.customer_id}</td>
-              <td>{body.shop}</td>
               <td>
                 <img
-                  src={body.crop_path}
+                  src={`http://218.255.25.154:1618/get_crop/${body.crop_path}`}
                   alt="customer"
                   width={27}
                   height={61}
