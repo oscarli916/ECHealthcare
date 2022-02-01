@@ -1,53 +1,59 @@
+import { TableData } from "../../types";
 import styles from "./table.module.css";
 
-const headCells = [
-  "Customer ID",
-  "Shop",
-  "Customer Image",
-  "Time In",
-  "Dwell Time",
+interface HeadCell {
+  id: string;
+  label: string;
+}
+
+const headCells: HeadCell[] = [
+  { id: "customer", label: "Customer ID" },
+  { id: "image", label: "Customer Image" },
+  { id: "time", label: "Time In" },
+  { id: "dwell", label: "Dwell Time" },
 ];
 
-// Mock data
-const bodyCells = [
-  {
-    id: "Customer #01",
-    shop: "MKQ",
-    image:
-      "https://aircall.io/wp-content/uploads/2016/04/Meditating-on-the-cloud-870x870.png",
-    in: "13:16:37",
-    dwell: "10 mins 2 secs",
-  },
-  {
-    id: "Customer #02",
-    shop: "ZTSTA",
-    image: "",
-    in: "13:19:58",
-    dwell: "7 mins 47 secs",
-  },
-];
+interface ITable {
+  data: TableData[];
+  onHeaderClickHandler: (headerID: string) => void;
+}
 
-const Table = () => {
+const Table = ({ data, onHeaderClickHandler }: ITable) => {
   return (
     <table className={styles["table"]}>
       <thead>
         <tr className={styles["row"]}>
-          {headCells.map((header) => (
-            <th className={styles["header"]}>{header}</th>
+          {headCells.map((header: HeadCell) => (
+            <th
+              key={header.id}
+              className={styles["header"]}
+              onClick={() => onHeaderClickHandler(header.id)}
+            >
+              {header.label}
+            </th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {bodyCells.map((body) => {
+        {data.map((body: TableData) => {
           return (
-            <tr className={styles["row"]}>
-              <td>{body.id}</td>
-              <td>{body.shop}</td>
+            <tr className={styles["row"]} key={body.customer_id}>
+              <td>{body.customer_id}</td>
               <td>
-                <img src={body.image} alt="customer" width={27} height={61} />
+                <img
+                  src={`http://218.255.25.154:1618/get_crop/${body.crop_path}`}
+                  alt="customer"
+                  width={27}
+                  height={61}
+                />
               </td>
-              <td>{body.in}</td>
-              <td>{body.dwell}</td>
+              <td>{body.time_in}</td>
+              <td
+                className={body.dwell_time > 300 ? styles["dwell"] : undefined}
+              >
+                {Math.floor(body.dwell_time / 60)} mins {body.dwell_time % 60}
+                secs
+              </td>
             </tr>
           );
         })}
