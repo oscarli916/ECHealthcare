@@ -5,6 +5,9 @@ import Pagination from "../../components/Pagination";
 import Table from "../../components/Table";
 import UpdateTime from "../../components/UpdateTime";
 import styles from "./homepage.module.css";
+import { TableData } from "../../types";
+
+type Order = "asc" | "desc";
 
 const HomePage = () => {
   const [updateTime, setUpdateTime] = useState("");
@@ -15,6 +18,8 @@ const HomePage = () => {
     timeEnd: "",
     dwell: "",
   });
+  const [order, setOrder] = useState<Order>("asc");
+  const [orderBy, setOrderBy] = useState("customer");
 
   useEffect(() => {
     setInterval(() => {
@@ -30,22 +35,29 @@ const HomePage = () => {
     }, 1000);
   }, []);
 
-  const filteredData = useMemo(() => {
-    return filterData(
-      data,
-      filter.customer,
-      filter.timeStart,
-      filter.timeEnd,
-      filter.dwell
+  const sortedAndFilteredData = useMemo(() => {
+    return sortData(
+      filterData(
+        data,
+        filter.customer,
+        filter.timeStart,
+        filter.timeEnd,
+        filter.dwell
+      ),
+      order,
+      orderBy
     );
-  }, [data, filter]);
+  }, [data, filter, order, orderBy]);
 
-  const pageSize = 1;
-  const totalPages = Math.ceil(filteredData.length / pageSize);
+  const pageSize = 20;
+  const totalPages = Math.ceil(sortedAndFilteredData.length / pageSize);
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastData = currentPage * pageSize;
   const indexOfFirstData = indexOfLastData - pageSize;
-  const pageData = filteredData.slice(indexOfFirstData, indexOfLastData);
+  const pageData = sortedAndFilteredData.slice(
+    indexOfFirstData,
+    indexOfLastData
+  );
 
   const onFilterSubmit = (
     customer: string,
@@ -60,6 +72,13 @@ const HomePage = () => {
       dwell: dwell,
     });
     setCurrentPage(1);
+  };
+
+  const onHeaderClick = (headerID: string) => {
+    if (headerID === orderBy) {
+      setOrder((prev) => (prev === "asc" ? "desc" : "asc"));
+    }
+    setOrderBy(headerID);
   };
 
   const onPagePreviousClickHandler = () => {
@@ -80,7 +99,7 @@ const HomePage = () => {
         <UpdateTime updateTime={updateTime} />
       </div>
 
-      <Table data={pageData} />
+      <Table data={pageData} onHeaderClickHandler={onHeaderClick} />
 
       <div className={styles["pagination-container"]}>
         <Pagination
@@ -95,13 +114,13 @@ const HomePage = () => {
 };
 
 function filterData(
-  data: any,
+  data: TableData[],
   customer: string,
   timeStart: string,
   timeEnd: string,
   dwell: string
 ) {
-  return data.filter((d: any) => {
+  return data.filter((d: TableData) => {
     if (timeEnd === "") {
       if (dwell === "")
         return d.customer_id.includes(customer) && d.time_in >= timeStart;
@@ -140,6 +159,33 @@ function filterData(
         );
     }
   });
+}
+
+function sortData(data: TableData[], order: Order, orderBy: string) {
+  const newData = [...data];
+
+  switch (orderBy) {
+    case "customer":
+      if (order === "asc") {
+        return newData.sort((a, b) =>
+          a.customer_id.localeCompare(b.customer_id)
+        );
+      }
+      return newData.sort((a, b) => b.customer_id.localeCompare(a.customer_id));
+    case "time":
+      if (order === "asc") {
+        return newData.sort((a, b) => a.time_in.localeCompare(b.time_in));
+      }
+      return newData.sort((a, b) => b.time_in.localeCompare(a.time_in));
+    case "dwell":
+      if (order === "asc") {
+        return newData.sort((a, b) => a.dwell_time - b.dwell_time);
+      }
+      return newData.sort((a, b) => b.dwell_time - a.dwell_time);
+
+    default:
+      return newData;
+  }
 }
 
 export default HomePage;

@@ -1,7 +1,5 @@
-import { useState } from "react";
+import { TableData } from "../../types";
 import styles from "./table.module.css";
-
-type Order = "asc" | "desc";
 
 interface HeadCell {
   id: string;
@@ -15,35 +13,17 @@ const headCells: HeadCell[] = [
   { id: "dwell", label: "Dwell Time" },
 ];
 
-type TableData = {
-  customer_id: string;
-  crop_path: string;
-  time_in: string;
-  dwell_time: number;
-};
-
 interface ITable {
   data: TableData[];
+  onHeaderClickHandler: (headerID: string) => void;
 }
 
-const Table = ({ data }: ITable) => {
-  const [order, setOrder] = useState<Order>("asc");
-  const [orderBy, setOrderBy] = useState("customer");
-
-  const sortedData = sortData(data, order, orderBy);
-
-  function onHeaderClickHandler(headerID: string) {
-    if (headerID === orderBy) {
-      setOrder((prev) => (prev === "asc" ? "desc" : "asc"));
-    }
-    setOrderBy(headerID);
-  }
-
+const Table = ({ data, onHeaderClickHandler }: ITable) => {
   return (
     <table className={styles["table"]}>
       <thead>
         <tr className={styles["row"]}>
-          {headCells.map((header) => (
+          {headCells.map((header: HeadCell) => (
             <th
               key={header.id}
               className={styles["header"]}
@@ -55,7 +35,7 @@ const Table = ({ data }: ITable) => {
         </tr>
       </thead>
       <tbody>
-        {sortedData.map((body) => {
+        {data.map((body: TableData) => {
           return (
             <tr className={styles["row"]} key={body.customer_id}>
               <td>{body.customer_id}</td>
@@ -81,32 +61,5 @@ const Table = ({ data }: ITable) => {
     </table>
   );
 };
-
-function sortData(data: TableData[], order: Order, orderBy: string) {
-  const newData = [...data];
-
-  switch (orderBy) {
-    case "customer":
-      if (order === "asc") {
-        return newData.sort((a, b) =>
-          a.customer_id.localeCompare(b.customer_id)
-        );
-      }
-      return newData.sort((a, b) => b.customer_id.localeCompare(a.customer_id));
-    case "time":
-      if (order === "asc") {
-        return newData.sort((a, b) => a.time_in.localeCompare(b.time_in));
-      }
-      return newData.sort((a, b) => b.time_in.localeCompare(a.time_in));
-    case "dwell":
-      if (order === "asc") {
-        return newData.sort((a, b) => a.dwell_time - b.dwell_time);
-      }
-      return newData.sort((a, b) => b.dwell_time - a.dwell_time);
-
-    default:
-      return newData;
-  }
-}
 
 export default Table;
