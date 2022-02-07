@@ -7,8 +7,12 @@ interface IModalImage {
 }
 
 const ModalImage = ({ clickedImg, setClickedImg }: IModalImage) => {
-  const onModalClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-    if ((e.target as Element).tagName === "DIV") setClickedImg("");
+  const onModalClickHandler = (e: React.MouseEvent) => {
+    setClickedImg("");
+  };
+
+  const onImageClickHandler = (e: React.MouseEvent) => {
+    e.stopPropagation();
   };
 
   return (
@@ -19,6 +23,7 @@ const ModalImage = ({ clickedImg, setClickedImg }: IModalImage) => {
         alt="bigger customer"
         width={275}
         height={635}
+        onClick={onImageClickHandler}
       />
     </div>
   );

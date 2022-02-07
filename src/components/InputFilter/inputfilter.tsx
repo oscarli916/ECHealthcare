@@ -1,6 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import styles from "./inputfilter.module.css";
-import { TIME } from "./inputfilter.constants";
+import {
+  START_TIME,
+  END_TIME,
+  INTERVAL_MINUTES,
+} from "./inputfilter.constants";
 
 interface IInputFilter {
   onSubmit: (
@@ -12,6 +16,10 @@ interface IInputFilter {
 }
 
 const InputFilter = ({ onSubmit }: IInputFilter) => {
+  const TIMESTAMP_OPTIONS = [
+    "",
+    ...getIntervalTimestamps(START_TIME, END_TIME, INTERVAL_MINUTES),
+  ];
   const [customer, setCustomer] = useState("");
   const [timeStart, setTimeStart] = useState("");
   const [timeEnd, setTimeEnd] = useState("");
@@ -72,7 +80,7 @@ const InputFilter = ({ onSubmit }: IInputFilter) => {
               onChange={onTimeStartChangeHandler}
               value={timeStart}
             >
-              {TIME.map((time) => (
+              {TIMESTAMP_OPTIONS.map((time) => (
                 <option key={time} value={time}>
                   {time}
                 </option>
@@ -86,7 +94,7 @@ const InputFilter = ({ onSubmit }: IInputFilter) => {
               onChange={onTimeEndChangeHandler}
               value={timeEnd}
             >
-              {TIME.map((time) => (
+              {TIMESTAMP_OPTIONS.map((time) => (
                 <option key={time} value={time}>
                   {time}
                 </option>
@@ -127,5 +135,22 @@ const InputFilter = ({ onSubmit }: IInputFilter) => {
     </div>
   );
 };
+
+function getIntervalTimestamps(start: number, end: number, interval: number) {
+  let timestampOptions: string[] = [];
+
+  for (let hour = start; hour < end; hour += 1) {
+    for (let minute = 0; minute < 60; minute += interval) {
+      let hourStr = hour.toString();
+      let minuteStr = minute.toString();
+
+      if (hour < 10) hourStr = `0${hour}`;
+      if (minute === 0) minuteStr = "00";
+      timestampOptions.push(`${hourStr}:${minuteStr}`);
+    }
+  }
+  timestampOptions.push(`${end}:00`);
+  return timestampOptions;
+}
 
 export default InputFilter;

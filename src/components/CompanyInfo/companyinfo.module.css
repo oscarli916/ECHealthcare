@@ -3,3 +3,7 @@
   margin-left: 20px;
   text-align: left;
 }
+
+.company-info > span {
+  display: flex;
+}
