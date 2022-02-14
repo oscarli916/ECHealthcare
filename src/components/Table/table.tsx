@@ -9,8 +9,8 @@ interface HeadCell {
 }
 
 const headCells: HeadCell[] = [
-  { id: "customer", label: "Customer ID" },
-  { id: "image", label: "Customer Image" },
+  { id: "customer", label: "Customer" },
+  { id: "image", label: "Image" },
   { id: "time", label: "Time In" },
   { id: "dwell", label: "Dwell Time" },
 ];
@@ -27,7 +27,7 @@ const Table = ({ data, onHeaderClickHandler }: ITable) => {
     <>
       <table className={styles["table"]}>
         <thead>
-          <tr className={styles["row"]}>
+          <tr className={styles["header-row"]}>
             {headCells.map((header: HeadCell) => (
               <th
                 key={header.id}
@@ -43,7 +43,7 @@ const Table = ({ data, onHeaderClickHandler }: ITable) => {
           {data.map((body: TableData) => {
             return (
               <tr className={styles["row"]} key={body.customer_id}>
-                <td>{body.customer_id}</td>
+                <td>Customer #{body.customer_id}</td>
                 <td>
                   <img
                     src={`http://218.255.25.154:1618/get_crop/${body.crop_path}`}
@@ -54,13 +54,17 @@ const Table = ({ data, onHeaderClickHandler }: ITable) => {
                   />
                 </td>
                 <td>{body.time_in}</td>
-                <td
-                  className={
-                    body.dwell_time > 300 ? styles["dwell"] : undefined
-                  }
-                >
-                  {Math.floor(body.dwell_time / 60)} mins {body.dwell_time % 60}
-                  secs
+                <td>
+                  <div
+                    className={
+                      body.dwell_time > 300
+                        ? styles["dwell-red"]
+                        : styles["dwell"]
+                    }
+                  >
+                    {Math.floor(body.dwell_time / 60)} mins{" "}
+                    {body.dwell_time % 60} secs
+                  </div>
                 </td>
               </tr>
             );

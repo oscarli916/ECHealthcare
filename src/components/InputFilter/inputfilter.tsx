@@ -54,85 +54,79 @@ const InputFilter = ({ onSubmit }: IInputFilter) => {
   }
 
   return (
-    <div className={styles["input-filter"]}>
-      <form onSubmit={onSubmitHandler}>
-        <div className={styles["input-filter-row"]}>
-          <label>
-            Customer ID
-            <input
-              className={styles["input-customer"]}
-              type={"text"}
-              name="id"
-              id="id"
-              onChange={onCustomerChangeHandler}
-              value={customer}
-            />
-          </label>
+    <form className={styles["input-filter"]} onSubmit={onSubmitHandler}>
+      <div className={styles["input-label"]}>
+        <div className={styles["input-customer"]}>
+          <label>Customer ID</label>
+          <input
+            type={"text"}
+            name="id"
+            id="id"
+            onChange={onCustomerChangeHandler}
+            value={customer}
+          />
         </div>
+        <div className={styles["input-time"]}>
+          <label>Time in</label>
 
-        <div className={styles["input-filter-row"]}>
-          <label>
-            Time in
-            <select
-              className={styles["input-time-left"]}
-              name="start-time"
-              id="start-time"
-              onChange={onTimeStartChangeHandler}
-              value={timeStart}
-            >
-              {TIMESTAMP_OPTIONS.map((time) => (
-                <option key={time} value={time}>
-                  {time}
-                </option>
-              ))}
-            </select>
-            -
-            <select
-              className={styles["input-time-right"]}
-              name="end-time"
-              id="end-time"
-              onChange={onTimeEndChangeHandler}
-              value={timeEnd}
-            >
-              {TIMESTAMP_OPTIONS.map((time) => (
-                <option key={time} value={time}>
-                  {time}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <div className={styles["input-filter-row"]}>
-          <label>
-            Dwell Time
-            <select
-              className={styles["input-dwell"]}
-              name="dwell-time"
-              id="dwell-time"
-              onChange={onDwellChangeHandler}
-              value={dwell}
-            >
-              <option value={""}></option>
-              <option value={"299"}>5 minutes</option>
-              <option value={"300"}>5+ minutes</option>
-              <option value={"600"}>10+ minutes</option>
-            </select>
-          </label>
-        </div>
-        <div className={styles["input-button"]}>
-          <button className={styles["input-button-left"]} type="submit">
-            Search
-          </button>
-          <button
-            className={styles["input-button-right"]}
-            type="reset"
-            onClick={onResetClickHandler}
+          <select
+            name="start-time"
+            id="start-time"
+            onChange={onTimeStartChangeHandler}
+            value={timeStart}
           >
-            Reset
-          </button>
+            {TIMESTAMP_OPTIONS.map((time) => (
+              <option key={time} value={time}>
+                {time}
+              </option>
+            ))}
+          </select>
         </div>
-      </form>
-    </div>
+        <span>-</span>
+        <div className={styles["input-time"]}>
+          <label>Time out</label>
+          <select
+            name="end-time"
+            id="end-time"
+            onChange={onTimeEndChangeHandler}
+            value={timeEnd}
+          >
+            {TIMESTAMP_OPTIONS.map((time) => (
+              <option key={time} value={time}>
+                {time}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className={styles["input-dwell"]}>
+          <label>Dwell Time</label>
+          <select
+            name="dwell-time"
+            id="dwell-time"
+            onChange={onDwellChangeHandler}
+            value={dwell}
+          >
+            <option value={""}></option>
+            <option value={"299"}>5 minutes</option>
+            <option value={"300"}>5+ minutes</option>
+            <option value={"600"}>10+ minutes</option>
+          </select>
+        </div>
+      </div>
+
+      <div className={styles["input-button"]}>
+        <button
+          className={styles["input-button-left"]}
+          type="reset"
+          onClick={onResetClickHandler}
+        >
+          Reset
+        </button>
+        <button className={styles["input-button-right"]} type="submit">
+          Search
+        </button>
+      </div>
+    </form>
   );
 };
 

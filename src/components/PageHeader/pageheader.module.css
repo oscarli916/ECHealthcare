@@ -1,0 +1,21 @@
+.page-header-left {
+  flex: 1;
+  margin-left: 30px;
+  text-align: left;
+}
+
+.page-header-right {
+  flex: 1;
+  margin-right: 30px;
+  padding: 20px 0px 20px 0px;
+  text-align: right;
+}
+
+.time {
+  color: #002db3;
+  font-size: 20px;
+}
+
+.update-time {
+  color: grey;
+}

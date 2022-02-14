@@ -1,19 +1,36 @@
 .table {
-  border: 1px solid grey;
-  border-collapse: collapse;
-  margin-bottom: 10px;
-  padding-top: 10px;
+  border-spacing: 0px;
+  padding-top: 20px;
   width: 100%;
 }
 
-.row {
-  border-bottom: 1px solid grey;
+.header-row {
+  background-color: ghostwhite;
+  color: cornflowerblue;
 }
 
 .header {
   padding: 10px 0px 10px 0px;
 }
 
+.row {
+  color: #002db3;
+}
+
 .dwell {
+  background-color: #ededf3;
+  color: #002db3;
+  border: 1px solid #ededf3;
+  border-radius: 5px;
+  margin: auto;
+  width: 120px;
+}
+
+.dwell-red {
+  background-color: lavenderblush;
   color: red;
+  border: 1px solid lavenderblush;
+  border-radius: 5px;
+  margin: auto;
+  width: 120px;
 }

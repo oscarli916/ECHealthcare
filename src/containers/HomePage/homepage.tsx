@@ -1,11 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
-import CompanyInfo from "../../components/CompanyInfo";
+import React, { useEffect, useMemo, useState } from "react";
 import InputFilter from "../../components/InputFilter";
-import Pagination from "../../components/Pagination";
+import PageHeader from "../../components/PageHeader";
+import { Pagination, PaginationItem } from "@mui/material";
 import Table from "../../components/Table";
-import UpdateTime from "../../components/UpdateTime";
-import styles from "./homepage.module.css";
 import { TableData } from "../../types";
+import styles from "./homepage.module.css";
 
 type Order = "asc" | "desc";
 
@@ -81,33 +80,44 @@ const HomePage = () => {
     setOrderBy(headerID);
   };
 
-  const onPagePreviousClickHandler = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
-  };
-
-  const onPageNextClickHandler = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  const onPaginationClickHandler = (
+    e: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setCurrentPage(value);
   };
 
   return (
     <>
       <div className={styles["info-container"]}>
-        <CompanyInfo />
+        <PageHeader updateTime={updateTime} />
+      </div>
+
+      <div className={styles["input-container"]}>
         <InputFilter onSubmit={onFilterSubmit} />
       </div>
-      <div className={styles["time-container"]}>
-        <UpdateTime updateTime={updateTime} />
-      </div>
 
-      <Table data={pageData} onHeaderClickHandler={onHeaderClick} />
+      <div className={styles["table-container"]}>
+        <Table data={pageData} onHeaderClickHandler={onHeaderClick} />
 
-      <div className={styles["pagination-container"]}>
-        <Pagination
-          currentPage={totalPages === 0 ? 0 : currentPage}
-          totalPages={totalPages}
-          onPagePrevious={onPagePreviousClickHandler}
-          onPageNext={onPageNextClickHandler}
-        />
+        <div className={styles["pagination-container"]}>
+          <Pagination
+            count={totalPages}
+            renderItem={(item) => (
+              <PaginationItem
+                {...item}
+                sx={{
+                  color: "cornflowerblue",
+                  "&.Mui-selected": {
+                    backgroundColor: "transparent",
+                    color: "#002db3",
+                  },
+                }}
+              />
+            )}
+            onChange={onPaginationClickHandler}
+          />
+        </div>
       </div>
     </>
   );
