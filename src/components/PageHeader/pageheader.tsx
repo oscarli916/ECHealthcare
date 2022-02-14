@@ -8,7 +8,12 @@ const PageHeader = ({ updateTime }: IPageHeader) => {
   return (
     <>
       <div className={styles["page-header-left"]}>
-        <img src="" alt="company-logo" width={0} height={0} />
+        <img
+          src="dayta_logo_001-01.png"
+          alt="company-logo"
+          width={"100%"}
+          height={"100%"}
+        />
       </div>
       <div className={styles["page-header-right"]}>
         <span className={styles["time"]}>{updateTime}</span>
