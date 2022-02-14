@@ -94,7 +94,7 @@ const HomePage = () => {
       </div>
 
       <div className={styles["input-container"]}>
-        <InputFilter onSubmit={onFilterSubmit} />
+        <InputFilter onSubmit={onFilterSubmit} setFilter={setFilter} />
       </div>
 
       <div className={styles["table-container"]}>

@@ -13,9 +13,17 @@ interface IInputFilter {
     timeEnd: string,
     dwell: string
   ) => void;
+  setFilter: React.Dispatch<
+    React.SetStateAction<{
+      customer: string;
+      timeStart: string;
+      timeEnd: string;
+      dwell: string;
+    }>
+  >;
 }
 
-const InputFilter = ({ onSubmit }: IInputFilter) => {
+const InputFilter = ({ onSubmit, setFilter }: IInputFilter) => {
   const TIMESTAMP_OPTIONS = [
     "",
     ...getIntervalTimestamps(START_TIME, END_TIME, INTERVAL_MINUTES),
@@ -51,6 +59,7 @@ const InputFilter = ({ onSubmit }: IInputFilter) => {
     setTimeStart("");
     setTimeEnd("");
     setDwell("");
+    setFilter({ customer: "", timeStart: "", timeEnd: "", dwell: "" });
   }
 
   return (
