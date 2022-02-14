@@ -12,7 +12,7 @@ const PageHeader = ({ updateTime }: IPageHeader) => {
           src="dayta_logo_001-01.png"
           alt="company-logo"
           width={"100%"}
-          height={"100%"}
+          height={90}
         />
       </div>
       <div className={styles["page-header-right"]}>
