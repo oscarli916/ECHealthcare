@@ -1,43 +1,77 @@
 .input-filter {
-  flex: 1;
-}
-
-.input-filter-row {
   display: flex;
-  margin-bottom: 10px;
+  flex-direction: column;
+  width: 100%;
 }
 
-.input-shop {
-  flex: 1;
-  margin-left: 70px;
-  margin-right: 30px;
+.input-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.input-label label {
+  color: #002db3;
+}
+
+.input-label > span {
+  font-size: 23px;
+  padding-top: 15px;
 }
 
 .input-customer {
-  margin-left: 16.5px;
+  display: inline-grid;
+  text-align: left;
 }
 
-.input-time-left {
-  margin-left: 54px;
-  margin-right: 5px;
+.input-customer > input {
+  width: 120px;
 }
 
-.input-time-right {
-  margin-left: 5px;
+.input-time {
+  display: inline-grid;
+  text-align: left;
+}
+
+.input-time > select {
+  width: 100px;
 }
 
 .input-dwell {
-  margin-left: 25px;
+  display: inline-grid;
+  text-align: left;
+}
+
+.input-dwell > select {
+  margin-top: 6px;
+  padding-left: 6px;
 }
 
 .input-button {
-  text-align: end;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
 }
 
 .input-button-left {
+  background-color: #ededf3;
+  border-color: #ededf3;
+  border-radius: 10px;
+  border-width: 0px;
+  color: #002db3;
+  font-weight: bold;
   margin-right: 30px;
+  height: 30px;
+  width: 100px;
 }
 
 .input-button-right {
-  margin-right: 40px;
+  /* margin-right: 40px; */
+  background-color: #002db3;
+  border-color: #002db3;
+  border-radius: 10px;
+  border-width: 0px;
+  color: white;
+  height: 30px;
+  width: 100px;
 }

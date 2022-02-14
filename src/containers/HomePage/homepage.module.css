@@ -2,17 +2,30 @@
   align-items: center;
   display: flex;
   margin-bottom: 10px;
+  background-color: white;
 }
 
-.time-container {
-  border-top: 2px solid grey;
-  border-bottom: 2px solid grey;
+.input-container {
+  align-items: center;
   display: flex;
-  padding: 10px 0px 10px 20px;
+  background-color: white;
+  padding: 40px 10px 40px 10px;
+  margin: 20px 20px 20px 20px;
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
+.table-container {
+  background-color: white;
+  margin: 20px 20px 0px 20px;
+  padding: 0px 20px 30px 20px;
+  border: 1px solid white;
+  border-radius: 10px;
 }
 
 .pagination-container {
+  background-color: ghostwhite;
   display: flex;
   justify-content: flex-end;
-  padding-right: 30px;
+  margin: 20px 0px 0px 0px;
 }
