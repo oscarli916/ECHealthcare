@@ -130,7 +130,7 @@ function filterData(
   customer: string,
   timeStart: string,
   timeEnd: string,
-  dwell: string
+  dwell: string,
 ) {
   return data.filter((d: TableData) => {
     if (timeEnd === "") {
@@ -194,7 +194,13 @@ function sortData(data: TableData[], order: Order, orderBy: string) {
         return newData.sort((a, b) => a.dwell_time - b.dwell_time);
       }
       return newData.sort((a, b) => b.dwell_time - a.dwell_time);
-
+    case "zone":
+      if (order === "asc") {
+        return newData.sort((a, b) =>
+          a.zone.localeCompare(b.zone)
+        );
+      }
+      return newData.sort((a, b) => b.zone.localeCompare(a.zone));
     default:
       return newData;
   }

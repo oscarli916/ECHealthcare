@@ -10,6 +10,7 @@ interface HeadCell {
 
 const headCells: HeadCell[] = [
   { id: "customer", label: "Customer" },
+  { id: "zone", label: "Zone" },
   { id: "image", label: "Image" },
   { id: "time", label: "Time In" },
   { id: "dwell", label: "Dwell Time" },
@@ -44,6 +45,7 @@ const Table = ({ data, onHeaderClickHandler }: ITable) => {
             return (
               <tr className={styles["row"]} key={body.customer_id}>
                 <td>Customer #{body.customer_id}</td>
+                <td>{body.zone}</td>
                 <td>
                   <img
                     src={`http://218.255.25.154:1618/get_crop/${body.crop_path}`}
