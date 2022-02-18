@@ -9,10 +9,10 @@ const PageHeader = ({ updateTime }: IPageHeader) => {
     <>
       <div className={styles["page-header-left"]}>
         <img
-          src="dayta_logo_001-01.png"
+          src="ec-healthcare-logo.png"
           alt="company-logo"
-          width={"100%"}
-          height={90}
+          width={"50%"}
+          height={"50%"}
         />
       </div>
       <div className={styles["page-header-right"]}>
