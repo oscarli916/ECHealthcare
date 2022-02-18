@@ -1,5 +1,7 @@
+import { ArrowDropDown } from "@mui/icons-material";
+import { TableSortLabel } from "@mui/material";
 import { useState } from "react";
-import { TableData } from "../../types";
+import { Order, TableData } from "../../types";
 import ModalImage from "../ModalImage";
 import styles from "./table.module.css";
 
@@ -18,10 +20,12 @@ const headCells: HeadCell[] = [
 
 interface ITable {
   data: TableData[];
+  order: Order;
+  orderBy: string;
   onHeaderClickHandler: (headerID: string) => void;
 }
 
-const Table = ({ data, onHeaderClickHandler }: ITable) => {
+const Table = ({ data, order, orderBy, onHeaderClickHandler }: ITable) => {
   const [clickedImg, setClickedImg] = useState("");
 
   return (
@@ -30,12 +34,16 @@ const Table = ({ data, onHeaderClickHandler }: ITable) => {
         <thead>
           <tr className={styles["header-row"]}>
             {headCells.map((header: HeadCell) => (
-              <th
-                key={header.id}
-                className={styles["header"]}
-                onClick={() => onHeaderClickHandler(header.id)}
-              >
+              <th key={header.id} className={styles["header"]}>
                 {header.label}
+                <TableSortLabel
+                  active={
+                    header.id === "zone" || header.id === "image" ? false : true
+                  }
+                  direction={orderBy === header.id ? order : "asc"}
+                  IconComponent={ArrowDropDown}
+                  onClick={() => onHeaderClickHandler(header.id)}
+                />
               </th>
             ))}
           </tr>

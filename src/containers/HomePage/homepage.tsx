@@ -3,10 +3,8 @@ import InputFilter from "../../components/InputFilter";
 import PageHeader from "../../components/PageHeader";
 import { Pagination, PaginationItem } from "@mui/material";
 import Table from "../../components/Table";
-import { TableData } from "../../types";
+import { Order, TableData } from "../../types";
 import styles from "./homepage.module.css";
-
-type Order = "asc" | "desc";
 
 const HomePage = () => {
   const [updateTime, setUpdateTime] = useState("");
@@ -100,7 +98,12 @@ const HomePage = () => {
       </div>
 
       <div className={styles["table-container"]}>
-        <Table data={pageData} onHeaderClickHandler={onHeaderClick} />
+        <Table
+          data={pageData}
+          order={order}
+          orderBy={orderBy}
+          onHeaderClickHandler={onHeaderClick}
+        />
 
         <div className={styles["pagination-container"]}>
           <Pagination
@@ -130,7 +133,7 @@ function filterData(
   customer: string,
   timeStart: string,
   timeEnd: string,
-  dwell: string,
+  dwell: string
 ) {
   return data.filter((d: TableData) => {
     if (timeEnd === "") {
@@ -196,9 +199,7 @@ function sortData(data: TableData[], order: Order, orderBy: string) {
       return newData.sort((a, b) => b.dwell_time - a.dwell_time);
     case "zone":
       if (order === "asc") {
-        return newData.sort((a, b) =>
-          a.zone.localeCompare(b.zone)
-        );
+        return newData.sort((a, b) => a.zone.localeCompare(b.zone));
       }
       return newData.sort((a, b) => b.zone.localeCompare(a.zone));
     default:

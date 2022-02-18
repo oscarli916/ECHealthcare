@@ -5,3 +5,5 @@ export type TableData = {
   time_in: string;
   dwell_time: number;
 };
+
+export type Order = "asc" | "desc";
